@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Client</title>
+</head>
+<button onclick="postRequest()">Post Request</button>
+
+<body>
+  <script>
+    let count = 0;
+
+    function postRequest() {
+      count += 1;
+      const quizz = {
+        "title": `${count} Những địa điểm trăm năm tuổi ở Cần Thơ`,
+        "author": "Song Phúc",
+        "public_time": "14:40 20/08/2020",
+        "content": "",
+        "questions": [{
+          "img": {
+            "url": "https://znews-photo.zadn.vn/w660/Uploaded/pgi_cuhpguvau/2020_08_20/68748144_2489147647832471_4557487351521246830_n_1.jpg",
+            "alt": "",
+            "title": ""
+          },
+          "num": 1,
+          "question": "1. Nhà lồng chợ cổ Cần Thơ được xây dựng vào khoảng thời gian nào?",
+          "correct_answer": "1915",
+          "explain": "Cổng TTĐT TP Cần Thơ cho biết căn cứ vào các nguồn tư liệu, nhà lồng chợ cổ Cần Thơ, hay nhà lồng chợ Cần Thơ, được xây dựng khoảng năm 1915, cùng thời với chợ Bến Thành ở TP.HCM ngày nay. Đây là  nơi tập kết, buôn bán hàng hóa của khu vực  Nam Kỳ lục tỉnh xưa, gắn liền với nếp sinh hoạt của người dân đồng bằng  sông Cửu Long. Ảnh: <em>Tranthanhlam_.</em>",
+          "answers": ["1915", "1815", "1715"]
+        }],
+        "root_source": "https://zingnews.vn/series/trac-nghiem-quizz.html",
+        "source": "https://zingnews.vn/nhung-dia-diem-tram-nam-tuoi-o-can-tho-post1122092.html"
+      };
+      fetch('http://localhost:4000/api/v1/quizzs', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(quizz)
+        })
+        .then(res => res.json())
+        .then(res => console.log(res))
+        .catch(err => console.log('err: ', err))
+    }
+  </script>
+</body>
+
+</html>
