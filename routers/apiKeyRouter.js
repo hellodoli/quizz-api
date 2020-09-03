@@ -1,13 +1,12 @@
 const express = require('express');
 const middleware = require('../middleware');
-const quizzController = require('../controllers/quizzController');
+const apiKeyController = require('../controllers/apiKeyContronller');
 
 const router = express.Router();
 router.use(middleware.apiKeyProtect);
 router
   .route('/')
-  .get(quizzController.getAllQuizz)
-  .post(quizzController.createQuizz);
-router.route('/:id').get(quizzController.getOne);
+  .get(apiKeyController.getAPIKey)
+  .post(apiKeyController.createAPIKey);
 
 module.exports = router;

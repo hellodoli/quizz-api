@@ -4,17 +4,30 @@ class APIFeatures {
     this.queryString = queryString;
   }
 
-  /*limitField() {
-    const {} = this.queryString;
+  filter() {
+    const queryObj = { ...this.queryString };
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+    excludedFields.forEach((el) => delete queryObj[el]);
+
+    let queryString = JSON.stringify(queryObj);
+    queryString = JSON.parse(
+      queryString.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `${match}`)
+    );
+
+    if (queryString.id) queryString._id = queryString.id;
+    delete queryString.id;
+
+    this.query = this.query.find(queryString);
     return this;
-  }*/
+  }
 
   sort() {
-    if (this.queryString.sort) {
-      const sortBy = this.queryString.sort.split(',').join(' ');
+    const { sort } = this.queryString;
+    if (sort) {
+      const sortBy = sort.split(',').join(' ');
       this.query = this.query.sort(sortBy);
     } else {
-      this.query = this.query.sort('-createdAt');
+      this.query = this.query.sort('-createdAt'); // default sort new to old
     }
     return this;
   }

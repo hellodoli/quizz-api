@@ -6,17 +6,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Test Client</title>
 </head>
-<button onclick="postRequest()">Post Request</button>
+
+
+
 
 <body>
+  <div>
+    <input type="text" />
+  </div>
+
+  <button onclick="postRequest()">Post Request</button>
   <script>
     let count = 0;
 
+    function randomInt(min, max) {
+      return min + Math.floor((max - min) * Math.random());
+    }
+
+    function randomCategory(type) {
+      let category = 'none';
+      switch (type) {
+        case 0:
+          category = 'history';
+          break;
+        case 1:
+          category = 'food';
+          break;
+        case 2:
+          category = 'site'; // 
+          break;
+        case 3:
+          category = 'geography'; // Địa lý, địa danh nổi tiếng, văn hóa
+          break;
+        case 4:
+          category = 'art'; // Nghệ thuật, mỹ thuật
+          break;
+        case 5:
+          category = 'sml';
+          break;
+        default:
+          category = 'none';
+          break;
+      }
+      return category;
+    }
+
     function postRequest() {
       count += 1;
+      const number = randomInt(0, 5);
+
       const quizz = {
         "title": `${count} Những địa điểm trăm năm tuổi ở Cần Thơ`,
         "author": "Song Phúc",
+        "category": randomCategory(number),
         "public_time": "14:40 20/08/2020",
         "content": "",
         "questions": [{

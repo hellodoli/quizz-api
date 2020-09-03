@@ -2,11 +2,17 @@ const mongoose = require('mongoose');
 
 const { Schema, model } = mongoose;
 
+const banPro = ['public_time_format', '__v', '_id'];
+
 const quizzSchema = new Schema(
   {
     content: {
       type: String,
       default: '',
+    },
+    category: {
+      type: String,
+      default: 'none',
     },
     author: {
       type: String,
@@ -80,7 +86,8 @@ quizzSchema.methods.toJSON = function () {
   const quizz = this;
   const quizzOb = quizz.toObject();
   quizzOb.id = quizzOb._id;
-  delete quizzOb._id;
+
+  banPro.forEach((property) => delete quizzOb[property]);
   return quizzOb;
 };
 
