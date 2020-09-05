@@ -12,9 +12,9 @@ app.use(express.json());
 // 2. Routes
 const apiVersion = '/api/v1';
 const quizzRouter = require('./routers/quizzRouter');
-const apiKeyRouter = require('./routers/apiKeyRouter');
+//const apiKeyRouter = require('./routers/apiKeyRouter');
 
 app.use(`${apiVersion}/quizzs`, quizzRouter);
-app.use(`${apiVersion}/keyGenerate`, apiKeyRouter);
+//app.use(`${apiVersion}/keyGenerate`, apiKeyRouter);
 
 module.exports = app;

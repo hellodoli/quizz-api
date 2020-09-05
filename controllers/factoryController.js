@@ -7,10 +7,11 @@ exports.getOne = (Model, popOptions) =>
     let query = Model.findById(req.params.id);
     if (popOptions) query = query.populate(popOptions);
     const doc = await query;
-    if (!doc) return next(new AppError('No document found with that id', 404));
+    if (!doc) throw new AppError('No document found with that id', 404);
     // Send response
     res.status(200).json({
       status: 'success',
+      statusCode: 200,
       data: doc,
     });
   });
@@ -27,6 +28,7 @@ exports.getAll = (Model) =>
     // Send response
     res.status(200).json({
       status: 'success',
+      statusCode: 200,
       result: docs.length,
       data: docs,
     });
@@ -37,8 +39,9 @@ exports.createOne = (Model) =>
     const doc = await Model.create(req.body);
 
     // Send response
-    res.status(200).json({
+    res.status(201).json({
       status: 'success',
+      statusCode: 201,
       data: doc,
     });
   });
