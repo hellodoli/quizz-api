@@ -1,6 +1,7 @@
 const factory = require('./factoryController');
 const QuizzModel = require('../models/QuizzModel');
 
-exports.getAllQuizz = factory.getAll(QuizzModel);
+exports.getAll = factory.getAll(QuizzModel);
 exports.getOne = factory.getOne(QuizzModel);
-exports.createQuizz = factory.createOne(QuizzModel);
+exports.create = factory.createOne(QuizzModel);
+exports.update = factory.update(QuizzModel);
