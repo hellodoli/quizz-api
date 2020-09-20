@@ -5,6 +5,7 @@ const quizzController = require('../controllers/quizzController');
 const router = express.Router();
 router.use(middleware.apiKeyProtect);
 router.route('/').get(quizzController.getAll).post(quizzController.create);
+router.route('/mix').get(quizzController.getAllMix);
 router.route('/:id').get(quizzController.getOne).patch(quizzController.update);
 
 module.exports = router;

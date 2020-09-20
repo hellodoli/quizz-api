@@ -33,13 +33,21 @@ exports.getOne = (Model, popOptions) =>
     });
   });
 
-exports.getAll = (Model) =>
+exports.getAll = (Model, mix = false) =>
   catchError(async (req, res, next) => {
     const filter = {};
-    const features = new APIFeatures(Model.find(filter), req.query)
-      .filter()
-      .sort()
-      .paginate();
+    let features = null;
+    if (mix) {
+      features = new APIFeatures(Model.find(filter), req.query)
+        .filter()
+        .sort()
+        .mix();
+    } else {
+      features = new APIFeatures(Model.find(filter), req.query)
+        .filter()
+        .sort()
+        .paginate();
+    }
     const docs = await features.query;
 
     // Send response

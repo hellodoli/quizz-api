@@ -1,12 +1,27 @@
+const excludedFields = [
+  // pagination
+  'page',
+  'limit',
+  // sort
+  'sort',
+  //
+  'fields',
+  // collect
+  'from',
+  'to',
+  // api key
+  'key',
+  'apiKey',
+];
+
 class APIFeatures {
   constructor(query, queryString) {
-    this.query = query;
+    this.query = query; // Model
     this.queryString = queryString;
   }
 
   filter() {
     const queryObj = { ...this.queryString };
-    const excludedFields = ['page', 'sort', 'limit', 'fields', 'key', 'apiKey'];
     excludedFields.forEach((el) => delete queryObj[el]);
 
     let queryString = JSON.stringify(queryObj);
@@ -39,6 +54,16 @@ class APIFeatures {
       const limitNum = limit * 1 || 8;
       const skip = (pageNum - 1) * limitNum;
       this.query = this.query.skip(skip).limit(limitNum);
+    }
+    return this;
+  }
+
+  mix() {
+    const { from, to } = this.queryString;
+    if (from && to) {
+      const skip = (from - 1) * 1;
+      const limit = (to - from + 1) * 1;
+      this.query = this.query.skip(skip).limit(limit);
     }
     return this;
   }
